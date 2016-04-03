@@ -3,6 +3,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 var queue = [];
+var incorrectTeams = [];
 var teams = [];
 
 function getTeamById(id) {
@@ -19,13 +20,23 @@ app.get('/admin', function(req, res){
 
 io.of('/admin').on('connection', function(socket) {
   socket.emit('queue', queue)
+  socket.on('correctAnswer', function () {
+    queue = []
+    incorrectTeams = []
+    socket.emit('queue', queue)
+  })
+  socket.on('incorrectAnswer', function () {
+    incorrectTeams.push(queue[0])
+    queue = queue.slice(1)
+    socket.emit('queue', queue)
+  })
 })
 
 io.of('/buzzer').on('connection', function(socket){
   teams.push(socket.id);
   socket.on('buzzer', function () {
     const team = getTeamById(socket.id)
-    if (queue.indexOf(team) == -1) {
+    if (queue.indexOf(team) == -1 && incorrectTeams.indexOf(team) == -1) {
       queue.push(team);
       io.of('/admin').emit('queue', queue)
     }

@@ -6,6 +6,9 @@
   <body>
     <ul id='queueContainer'>
     </ul>
+    Mark current team's response as : <br/>
+    <button onclick="correctAnswer()">Correct</button>
+    <button onclick="incorrectAnswer()">Incorrect</button>
     <script src="/socket.io/socket.io.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
@@ -16,6 +19,12 @@
         }).join('');
         $('#queueContainer').html(html)
       })
+      function correctAnswer() {
+        socket.emit('correctAnswer')
+      }
+      function incorrectAnswer() {
+        socket.emit('incorrectAnswer')
+      }
     </script>
   </body>
 </html>
