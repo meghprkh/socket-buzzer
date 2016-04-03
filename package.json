@@ -1,0 +1,29 @@
+{
+  "name": "socket-buzzer",
+  "version": "0.0.1",
+  "description": "A buzzer application for quizes using sockets",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Megh Parikh <meghprkh@gmail.com> (http://meghprkh.github.io)",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.4",
+    "socket.io": "^1.4.5"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meghprkh/socket-buzzer.git"
+  },
+  "keywords": [
+    "socket",
+    "buzzer",
+    "queue"
+  ],
+  "bugs": {
+    "url": "https://github.com/meghprkh/socket-buzzer/issues"
+  },
+  "homepage": "https://github.com/meghprkh/socket-buzzer#readme"
+}
