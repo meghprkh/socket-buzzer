@@ -4,20 +4,50 @@
     <title>Admin page</title>
   </head>
   <body>
-    <ul id='queueContainer'>
-    </ul>
-    Mark current team's response as : <br/>
-    <button onclick="correctAnswer()">Correct</button>
-    <button onclick="incorrectAnswer()">Incorrect</button>
+
+    <div id="login">
+      Please enter the administrator password:<br />
+      <form id="loginForm">
+        <input id="loginPassword" type="password">
+        <input type="submit">
+      </form>
+    </div>
+
+    <div id="authenticated">
+      <ul id='queueContainer'>
+      </ul>
+      Mark current team's response as : <br/>
+      <button onclick="correctAnswer()">Correct</button>
+      <button onclick="incorrectAnswer()">Incorrect</button>
+    </div>
+
+
     <script src="/socket.io/socket.io.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
-      var socket = io('/admin');
-      socket.on('queue', function (queue) {
-        var html = queue.map(function (team) {
-          return '<li>Team ' + team + '</li>';
-        }).join('');
-        $('#queueContainer').html(html)
+      var socket, token;
+      $('#authenticated').hide();
+      $('#loginForm').submit(function() {
+        $.post('/adminAuth', {
+          password: $('#loginPassword').val()
+        }, function(tk) {
+          token = tk;
+          socket = io('/admin', {
+            query: "token=" + token
+          });
+
+          socket.on('connect', function() {
+            $('#login').hide();
+            $('#authenticated').show();
+            socket.on('queue', function (queue) {
+              var html = queue.map(function (team) {
+                return '<li>Team ' + team + '</li>';
+              }).join('');
+              $('#queueContainer').html(html)
+            })
+          });
+        })
+        return false;
       })
       function correctAnswer() {
         socket.emit('correctAnswer')

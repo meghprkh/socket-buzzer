@@ -1,6 +1,9 @@
 var app = require('express')();
-var http = require('http').Server(app);
+var bodyParser = require('body-parser');
+var http = require('http').createServer(app);
 var io = require('socket.io')(http);
+var jwt = require('jsonwebtoken');
+const config = require('./config')
 
 var queue = [];
 var incorrectTeams = [];
@@ -10,12 +13,37 @@ function getTeamById(id) {
   return teams.indexOf(id) + 1;
 }
 
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
+app.get('/queue', function(req, res){
+  res.send(queue)
+});
+
 app.get('/admin', function(req, res){
   res.sendFile(__dirname + '/admin.html');
+});
+
+app.post('/adminAuth', function (req, res) {
+  var password = req.body.password;
+  if (password == config.ADMIN_PASSWORD) {
+    var token = jwt.sign({}, config.PRIVATE_KEY, {
+      expiresIn: '5h',
+      subject: 'admin'
+    });
+    res.send(token)
+  } else res.status(401).send()
+})
+
+io.of('/admin').use(function(socket, next) {
+  var token = socket.request._query.token;
+  if (jwt.verify(token, config.PRIVATE_KEY, {subject: 'admin'}))
+    next();
+  else next(new Error("not authorized"))
 });
 
 io.of('/admin').on('connection', function(socket) {
