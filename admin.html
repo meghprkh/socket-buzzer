@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Admin page</title>
+  </head>
+  <body>
+    <ul id='queueContainer'>
+    </ul>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      var socket = io('/admin');
+      socket.on('queue', function (queue) {
+        var html = queue.map(function (team) {
+          return '<li>Team ' + team + '</li>';
+        }).join('');
+        $('#queueContainer').html(html)
+      })
+    </script>
+  </body>
+</html>

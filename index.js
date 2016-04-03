@@ -13,9 +13,13 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/queue', function(req, res){
-  res.send(queue);
+app.get('/admin', function(req, res){
+  res.sendFile(__dirname + '/admin.html');
 });
+
+io.of('/admin').on('connection', function(socket) {
+  socket.emit('queue', queue)
+})
 
 io.of('/buzzer').on('connection', function(socket){
   teams.push(socket.id);
@@ -23,6 +27,7 @@ io.of('/buzzer').on('connection', function(socket){
     const team = getTeamById(socket.id)
     if (queue.indexOf(team) == -1) {
       queue.push(team);
+      io.of('/admin').emit('queue', queue)
     }
   });
 });
