@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Question</title>
+  </head>
+  <body>
+    <div id="question">
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./jquery-1.11.1.js"></script>
+    <script>
+      var socket = io('/public');
+
+      socket.on('newQuestion', function(question) {
+        $('#question').html(question)
+      })
+    </script>
+  </body>
+</html>

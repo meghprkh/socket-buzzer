@@ -1,4 +1,5 @@
 var jwt = require('jsonwebtoken');
+var fs = require('fs')
 var state = require('./state');
 const config = require('./config')
 
@@ -26,6 +27,12 @@ module.exports = function (app, io) {
     socket.on('correctAnswer', function () {
       state.queue = []
       state.incorrectTeams = []
+      state.questionNumber++
+      fs.readFile('./questions/' + state.questionNumber, 'utf8', function (err, data) {
+        state.currentQuestion = data
+        if (err) throw err;
+        io.of('/public').emit('newQuestion', data)
+      });
       socket.emit('queue', state.queue)
     })
     socket.on('incorrectAnswer', function () {

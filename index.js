@@ -22,8 +22,13 @@ app.get('/admin', function(req, res){
   res.sendFile(__dirname + '/admin.html');
 });
 
+app.get('/question', function(req, res){
+  res.sendFile(__dirname + '/question.html');
+});
+
 require('./admin')(app, io)
 require('./buzzer')(app, io)
+require('./public')(app, io)
 
 http.listen(3000, function(){
   console.log('listening on *:3000');
