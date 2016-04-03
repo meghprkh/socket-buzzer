@@ -15,6 +15,7 @@ function getTeamById(id) {
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(require('express').static('public'))
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
