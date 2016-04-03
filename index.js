@@ -60,6 +60,24 @@ io.of('/admin').on('connection', function(socket) {
   })
 })
 
+app.post('/buzzerAuth', function (req, res) {
+  var password = req.body.password;
+  if (password == config.BUZZER_PASSWORD) {
+    var token = jwt.sign({}, config.PRIVATE_KEY, {
+      expiresIn: '5h',
+      subject: 'buzzer'
+    });
+    res.send(token)
+  } else res.status(401).send()
+})
+
+io.of('/buzzer').use(function(socket, next) {
+  var token = socket.request._query.token;
+  if (jwt.verify(token, config.PRIVATE_KEY, {subject: 'buzzer'}))
+    next();
+  else next(new Error("not authorized"))
+});
+
 io.of('/buzzer').on('connection', function(socket){
   teams.push(socket.id);
   socket.on('buzzer', function () {
