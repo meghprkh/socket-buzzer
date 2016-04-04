@@ -3,7 +3,7 @@ var state = require('./state');
 const config = require('./config')
 
 function getTeamById(id) {
-  return state.teams.indexOf(id) + 1;
+  return state.teams.indexOf(id);
 }
 
 module.exports = function (app, io) {

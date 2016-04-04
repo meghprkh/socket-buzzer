@@ -27,7 +27,7 @@ module.exports = function (app, io) {
     socket.emit('queue', state.queue)
     socket.on('correctAnswer', function () {
       if (state.queue.length) {
-        var team = state.queue[0] - 1;
+        var team = state.queue[0];
         state.scores[team] = scoring.correctAnswer(state.scores[team])
       }
       state.queue = []
@@ -43,9 +43,9 @@ module.exports = function (app, io) {
     })
     socket.on('incorrectAnswer', function () {
       if (state.queue.length) {
-        var team = state.queue[0] - 1;
+        var team = state.queue[0];
         state.scores[team] = scoring.incorrectAnswer(state.scores[team])
-        state.incorrectTeams.push(state.queue[0])
+        state.incorrectTeams.push(team)
         state.queue = state.queue.slice(1)
       }
       socket.emit('queue', state.queue)

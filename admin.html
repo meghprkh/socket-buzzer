@@ -41,7 +41,7 @@
             $('#authenticated').show();
             socket.on('queue', function (queue) {
               var html = queue.map(function (team) {
-                return '<li>Team ' + team + '</li>';
+                return '<li>Team ' + (team+1) + '</li>';
               }).join('');
               $('#queueContainer').html(html)
             })
