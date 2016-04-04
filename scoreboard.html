@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Scoreboard</title>
+  </head>
+  <body>
+    <ul id="scoreboard">
+    </ul>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./jquery-1.11.1.js"></script>
+    <script>
+      var socket = io('/public');
+
+      socket.on('scoreboard', function(scores) {
+        $('#scoreboard').html(scores.map(function (score, index) {
+          return '<li> Team ' + (index+1) + ' : ' + score + '</li>'
+        }).join(''))
+      })
+    </script>
+  </body>
+</html>

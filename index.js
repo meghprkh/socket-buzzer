@@ -26,6 +26,10 @@ app.get('/question', function(req, res){
   res.sendFile(__dirname + '/question.html');
 });
 
+app.get('/scoreboard', function(req, res){
+  res.sendFile(__dirname + '/scoreboard.html');
+});
+
 require('./admin')(app, io)
 require('./buzzer')(app, io)
 require('./public')(app, io)

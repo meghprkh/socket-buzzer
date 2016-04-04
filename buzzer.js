@@ -27,6 +27,8 @@ module.exports = function (app, io) {
 
   io.of('/buzzer').on('connection', function(socket){
     state.teams.push(socket.id);
+    state.scores.push(0);
+    io.of('/public').emit('scoreboard', state.scores)
     socket.on('buzzer', function () {
       const team = getTeamById(socket.id)
       if (state.queue.indexOf(team) == -1 && state.incorrectTeams.indexOf(team) == -1) {

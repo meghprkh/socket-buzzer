@@ -1,6 +1,7 @@
 var jwt = require('jsonwebtoken');
 var fs = require('fs')
 var state = require('./state');
+var scoring = require('./scoring');
 const config = require('./config')
 
 module.exports = function (app, io) {
@@ -25,6 +26,10 @@ module.exports = function (app, io) {
   io.of('/admin').on('connection', function(socket) {
     socket.emit('queue', state.queue)
     socket.on('correctAnswer', function () {
+      if (state.queue.length) {
+        var team = state.queue[0] - 1;
+        state.scores[team] = scoring.correctAnswer(state.scores[team])
+      }
       state.queue = []
       state.incorrectTeams = []
       state.questionNumber++
@@ -34,11 +39,17 @@ module.exports = function (app, io) {
         io.of('/public').emit('newQuestion', data)
       });
       socket.emit('queue', state.queue)
+      io.of('/public').emit('scoreboard', state.scores)
     })
     socket.on('incorrectAnswer', function () {
-      state.incorrectTeams.push(state.queue[0])
-      state.queue = state.queue.slice(1)
+      if (state.queue.length) {
+        var team = state.queue[0] - 1;
+        state.scores[team] = scoring.incorrectAnswer(state.scores[team])
+        state.incorrectTeams.push(state.queue[0])
+        state.queue = state.queue.slice(1)
+      }
       socket.emit('queue', state.queue)
+      io.of('/public').emit('scoreboard', state.scores)
     })
   })
 }
