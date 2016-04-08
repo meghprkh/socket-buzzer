@@ -6,9 +6,10 @@
   <body>
 
     <div id="login">
-      Please enter the buzzer password:<br />
+      Please enter the team id and buzzer password:<br />
       <form id="loginForm">
-        <input id="loginPassword" type="password">
+        <input id="loginTeam" placeholder="Team">
+        <input id="loginPassword" placeholder="Password" type="password">
         <input type="submit">
       </form>
     </div>
@@ -24,6 +25,7 @@
       $('#authenticated').hide();
       $('#loginForm').submit(function() {
         $.post('/buzzerAuth', {
+          team: $('#loginTeam').val(),
           password: $('#loginPassword').val()
         }, function(tk) {
           token = tk;
