@@ -1,20 +1,43 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>Question</title>
-  </head>
-  <body>
-    <div id="question">
-    </div>
+<head>
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
+  <title> HackIn</title>
+	<script src="js/jquery.min.js"></script>
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
 
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="./jquery-1.11.1.js"></script>
-    <script>
-      var socket = io('/public');
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
 
-      socket.on('newQuestion', function(question) {
-        $('#question').html(question)
-      })
-    </script>
-  </body>
+	<!-- Latest compiled and minified JavaScript -->
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/jquery-latest.min.js"></script>
+	<script type="text/javascript" src="js/TweenMax.min.js"> </script>
+	<script type="text/javascript" src="js/cooltext-animations.js"></script>
+	<script type="text/javascript" src="js/cooltext.js"></script>
+	<link rel="stylesheet" href="css/myStyle.css">
+</head>
+
+<body>
+<div class="well" id="question_container">
+	<i style="font-size:80px;" class="fa faa-burst animated"></i>
+	<i class="fa fa-quote-left fa-3x fa-pull-left fa-border"></i>
+	<br/>
+	<p id="question">
+	</p>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="./jquery-1.11.1.js"></script>
+<script>
+  var socket = io('/public');
+
+  socket.on('newQuestion', function(question) {
+    $('#question').html(question)
+  })
+</script>
+</body>
 </html>

@@ -1,9 +1,38 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>Admin page</title>
-  </head>
-  <body>
+<head>
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
+	<title>Web-dev club</title>
+	<script src="js/jquery.min.js"></script>
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/jquery-latest.min.js"></script>
+	<script type="text/javascript" src="js/TweenMax.min.js"> </script>
+	<script type="text/javascript" src="js/cooltext-animations.js"></script>
+	<script type="text/javascript" src="js/cooltext.js"></script>
+	<link rel="stylesheet" href="css/myStyle.css">
+</head>
+
+<body>
+<img id="left" src="images/bf_flower_left.png"/>
+<img id="right" src="images/bf_flower_right.png"/>
+
+
+<div style="margin-top:0px;width:100%; height:280px;overflow:hidden; border-radius:20px;">
+	<img id="header1" src="images/header3.jpg" />
+</div>
+
+<div id="heading"> <p style="font-weight:bold;">Web-dev Club</p></div>
+<div id="nav_main"> <p> Hacking is not a crime, But It's a Game Of Mind.. </p></div>
+
 
     <div id="login">
       Please enter the administrator password:<br />
@@ -14,13 +43,23 @@
     </div>
 
     <div id="authenticated">
-      <ul id='queueContainer'>
-      </ul>
-      Mark current team's response as : <br/>
-      <button onclick="correctAnswer()">Correct</button>
-      <button onclick="incorrectAnswer()">Incorrect</button>
+      <div class="row">
+        <div class="col-sm-6">
+          <ul id='queueContainer'>
+          </ul>
+          Mark current team's response as : <br/>
+          <button onclick="correctAnswer()">Correct</button>
+          <button onclick="incorrectAnswer()">Incorrect</button>
+        </div>
+        <div class="col-sm-6">
+          <iframe src="/scoreboard" scrolling="no" style="width: 100%; height: 25em; border: 0; overflow: hidden"></iframe>
+        </div>
+      </div>
     </div>
 
+    <div id="footer">
+    	@developed_by firstname.lastname@gmail.com
+    </div>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="./jquery-1.11.1.js"></script>

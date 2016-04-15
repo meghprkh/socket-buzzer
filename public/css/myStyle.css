@@ -1,0 +1,114 @@
+
+@font-face {
+	font-family: 'Lato';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Lato Regular'), local('Lato-Regular'), url(../fonts/1YwB1sO8YE1Lyjf12WNiUA.woff2) format('woff2');
+}
+
+@font-face {
+	font-family: buzz-font;
+	src: url(../fonts/Raleway.ttf);
+}
+
+@font-face {
+	font-family: myFirstFont;
+	src: url(../fonts/sansation_light.woff);
+}
+
+@font-face {
+	font-family: hacked;
+	src: url(../fonts/hacked.ttf);
+}
+
+
+div {
+	font-family: myFirstFont;
+}
+
+
+body {
+	font-family: buzz-font;
+	font-size: 14px;
+	line-height: 1.42857;
+	color: #333;
+	text-align:center;
+	padding:0px;
+	margin:0px;
+	margin-left:2%;
+	margin-right:2%;
+}
+
+#nav_main {
+	background: #d54515 url(../images/slider-gradient-bg.png) repeat-y 50% 0;
+	-moz-box-shadow: inset 0 0 3px #000000;
+	-webkit-box-shadow: inset 0 0 3px #000000;
+	box-shadow: inset 0 0 3px #000000;
+	color:white;
+	font-size: 25px;
+	text-align:center;
+	font-weight:bold;
+	margin-bottom:100px;
+	margin-top:1px;
+	bottom:0px;
+
+}
+
+#header1 {
+	height:900px;
+	width:100%;
+	margin-top:3px;
+}
+
+#heading {
+	font-family: hacked;
+	font-size:100px;
+	text-shadow: 1px 1px 35px white;
+	visibility: hidden;
+	left:38%;
+	color:white;
+	position:absolute;
+	top:90px;
+}
+
+#prog {
+	margin-top:100px;
+	margin-bottom:100px;
+}
+
+#question_container{
+	margin:15%;
+	margin-top:0px;
+	margin-bottom:70px;
+	padding:40px;
+}
+
+#statement {
+	font-size:17px;
+}
+
+#formsubmit {
+	margin:25%;
+	margin-top:0px;
+
+}
+
+#footer {
+	margin:15px;
+}
+
+img#left {
+	position:absolute;
+	top:840px;
+	left:0px;
+}
+img#right {
+	position:absolute;
+	top:1100px;
+	right:0px;
+}
+
+#filediv {
+
+	margin-bottom:80px;
+}
