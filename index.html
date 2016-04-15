@@ -43,8 +43,13 @@
     </div>
 
     <div id="authenticated">
-      <iframe src="/question" scrolling="no" style="width: 100%; height: 25em; border: 0; overflow: hidden"></iframe>
-      <button class="btn btn-danger" onClick="buzzer()">Buzzer</button>
+      <div class="row">
+        <div class="col-md-8">
+          <iframe src="/question" scrolling="no" style="width: 100%; height: 100em; border: 0; overflow: hidden"></iframe>
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-danger" onClick="buzzer()">Buzzer</button>
+        </div>
     </div>
 
     <div id="footer">
