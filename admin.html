@@ -64,30 +64,39 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="./jquery-1.11.1.js"></script>
     <script>
-      var socket, token;
+      var socket, token = localStorage.getItem('token');
+      console.log(token)
+      if (token) onAuthenticate()
       $('#authenticated').hide();
+
       $('#loginForm').submit(function() {
         $.post('/adminAuth', {
           password: $('#loginPassword').val()
         }, function(tk) {
-          token = tk;
-          socket = io('/admin', {
-            query: "token=" + token
-          });
-
-          socket.on('connect', function() {
-            $('#login').hide();
-            $('#authenticated').show();
-            socket.on('queue', function (queue) {
-              var html = queue.map(function (team) {
-                return '<li>Team ' + (team+1) + '</li>';
-              }).join('');
-              $('#queueContainer').html(html)
-            })
-          });
+          token = tk
+          localStorage.setItem('token', tk)
+          onAuthenticate()
         })
         return false;
       })
+
+      function onAuthenticate() {
+        socket = io('/admin', {
+          query: "token=" + token
+        });
+
+        socket.on('connect', function() {
+          $('#login').hide();
+          $('#authenticated').show();
+          socket.on('queue', function (queue) {
+            var html = queue.map(function (team) {
+              return '<li>Team ' + (team+1) + '</li>';
+            }).join('');
+            $('#queueContainer').html(html)
+          })
+        });
+      }
+
       function correctAnswer() {
         socket.emit('correctAnswer')
       }

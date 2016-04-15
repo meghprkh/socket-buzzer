@@ -53,25 +53,32 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
-      var socket, token;
+      var socket, token = localStorage.getItem('token');
+      if (token) onAuthenticate()
+
       $('#authenticated').hide();
       $('#loginForm').submit(function() {
         $.post('/buzzerAuth', {
           team: $('#loginTeam').val(),
           password: $('#loginPassword').val()
         }, function(tk) {
-          token = tk;
-          socket = io('/buzzer', {
-            query: "token=" + token
-          });
-
-          socket.on('connect', function() {
-            $('#login').hide();
-            $('#authenticated').show();
-          })
+          token = tk
+          localStorage.setItem('token', tk)
+          onAuthenticate()
         })
         return false;
       })
+
+      function onAuthenticate() {
+        socket = io('/buzzer', {
+          query: "token=" + token
+        });
+
+        socket.on('connect', function() {
+          $('#login').hide();
+          $('#authenticated').show();
+        })
+      }
 
       function buzzer() {
         socket.emit('buzzer')
