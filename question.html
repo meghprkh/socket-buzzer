@@ -11,14 +11,16 @@
 
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="css/prism.css">
 
 	<!-- Latest compiled and minified JavaScript -->
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/jquery-latest.min.js"></script>
 	<script type="text/javascript" src="js/TweenMax.min.js"> </script>
 	<script type="text/javascript" src="js/cooltext-animations.js"></script>
-	<script type="text/javascript" src="js/cooltext.js"></script>
-	<link rel="stylesheet" href="css/myStyle.css">
+  <script type="text/javascript" src="js/cooltext.js"></script>
+  <script type="text/javascript" src="js/prism.js"></script>
+  <link rel="stylesheet" href="css/myStyle.css">
 </head>
 
 <body>
@@ -37,6 +39,7 @@
 
   socket.on('newQuestion', function(question) {
     $('#question').html(question)
+    Prism.highlightAll();
   })
 </script>
 </body>
