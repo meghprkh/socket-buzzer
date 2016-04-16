@@ -28,6 +28,7 @@ module.exports = function (app, io) {
   io.of('/buzzer').on('connection', function(socket){
     while (state.scores.length <= socket.team) state.scores.push(0);
     io.of('/public').emit('scoreboard', state.scores)
+    socket.emit('questionBuzzable', state.questionBuzzable)
     socket.on('buzzer', function () {
       if (!state.questionBuzzable) return;
       const team = socket.team

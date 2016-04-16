@@ -34,9 +34,11 @@ module.exports = function (app, io) {
       state.incorrectTeams = []
       state.questionNumber++
       fs.readFile('./questions/' + require('./getFileName')(state.questionNumber), 'utf8', function (err, data) {
-        state.currentQuestion = data
         if (err) throw err;
+        state.currentQuestion = data
+        state.questionBuzzable = require('./questionBuzzable')(state.questionNumber)
         io.of('/public').emit('newQuestion', data)
+        io.of('/buzzer').emit('questionBuzzable', state.questionBuzzable)
       });
       socket.emit('queue', state.queue)
       io.of('/public').emit('scoreboard', state.scores)
