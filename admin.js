@@ -33,7 +33,7 @@ module.exports = function (app, io) {
       state.queue = []
       state.incorrectTeams = []
       state.questionNumber++
-      fs.readFile('./questions/' + state.questionNumber + '.html', 'utf8', function (err, data) {
+      fs.readFile('./questions/' + require('./getFileName')(state.questionNumber), 'utf8', function (err, data) {
         state.currentQuestion = data
         if (err) throw err;
         io.of('/public').emit('newQuestion', data)

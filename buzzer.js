@@ -29,6 +29,7 @@ module.exports = function (app, io) {
     while (state.scores.length <= socket.team) state.scores.push(0);
     io.of('/public').emit('scoreboard', state.scores)
     socket.on('buzzer', function () {
+      if (!state.questionBuzzable) return;
       const team = socket.team
       if (state.queue.indexOf(team) == -1 && state.incorrectTeams.indexOf(team) == -1) {
         state.queue.push(team);
